@@ -12,10 +12,25 @@ class BorrowedItem(models.Model):
     borrow_person = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
     return_date = models.DateTimeField(auto_now_add=False,null=True,blank=True)
     is_delivered = models.BooleanField(default=False)
+    is_returned = models.BooleanField(default=False)
+    book_returned_date = models.DateField(auto_now_add=False,blank=True,null=True)
     
     def __str__(self):
         return f"{self.borrow_person.username} borrowed {self.book_id.title} " 
     
+    
+def add_book_returned_date(sender,instance,*args,**kwargs):
+    print("***********Book returned reciever, Saving date to the Transaction********")
+    borrowed_book = Book.objects.get(id = instance.book_id.id)
+    if instance.is_returned == True:
+        instance.book_returned_date = datetime.today()
+        instance.is_delivered = False
+        borrowed_book.is_borrowed = False
+        borrowed_book.save()
+        print("Book Returned, Transaction Date Saved...")
+    else:
+        pass
+    print("Return method on ",borrowed_book)
     
 
 def add_return_date(sender,instance,*args,**kwargs):
@@ -37,7 +52,8 @@ def add_return_date(sender,instance,*args,**kwargs):
     print(instance.return_date)
     
         
-post_save.connect(add_return_date,sender=BorrowedItem)
+pre_save.connect(add_return_date,sender=BorrowedItem)
+pre_save.connect(add_book_returned_date,sender=BorrowedItem)
 
 def change_borrow_state(sender,instance,*args,**kwargs):
     print("******************Change Borrow State Receiver***********")

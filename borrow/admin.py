@@ -5,7 +5,8 @@ from books.models import Book
 
 # Register your models here.
 class BorrowedItemAdmin(admin.ModelAdmin):
-    list_display=['book_id','borrow_person','return_date','is_delivered']
+    list_display=['book_id','borrow_person','return_date','is_delivered','is_returned','book_returned_date']
+    readonly_fields = ['book_returned_date','return_date']
     class Meta:
         model = BorrowedItem
         
