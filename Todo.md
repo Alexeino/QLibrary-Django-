@@ -16,7 +16,7 @@ Qlibrary Web App...
     -   Return --> Done (Captures actual Returned Date and update transaction and book state.)
 
 -   User Based Ratings and Review
-    - Star Rating and Comment (Review)
+    - Star Rating and Comment (Review)  --> Done (Base Model Ready)
     - User must have ordered that Book to Review
     - Login Required
 
@@ -30,4 +30,4 @@ Qlibrary Web App...
 
 ##  Future
 -   API
--   Tracking of User Patter to Add Recomendation System.
+-   Tracking of User Pattern to Add Recomendation System.
