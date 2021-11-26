@@ -13,6 +13,8 @@ admin.site.register(Author,AuthorAdmin)
 class BookAdmin(admin.ModelAdmin):
     list_display = ['book_id','id','title','author']
     list_filter = ['tags']
+    readonly_fields = ['is_borrowed']
+
     formfield_overrides = {
         models.ManyToManyField:{'widget':CheckboxSelectMultiple},
     }
@@ -24,6 +26,7 @@ class BookProxyAdmin(admin.ModelAdmin):
     list_display = ['book_id','id','title','author','is_active','active_timestamp']
     search_fields = ['title']
     list_filter = ['is_active','tags']
+    readonly_fields = ['is_borrowed']
     
     class Meta:
         model = BookProxy

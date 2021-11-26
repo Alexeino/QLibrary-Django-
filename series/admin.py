@@ -9,8 +9,9 @@ from .models import Series
 class BookInline(admin.TabularInline):
     model = Book
     extra = 0
-    read_only = ['title']
-    fields = ['title','order','author','is_active']
+    readonly_fields = ['title','order','author','is_borrowed']
+    fields = ['title','order','author','is_active','is_borrowed']
+    
 
 class SeriesAdmin(admin.ModelAdmin):
     inlines = [BookInline]

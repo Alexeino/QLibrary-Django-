@@ -19,6 +19,8 @@ Qlibrary Web App...
 -   User Accounts
 
 -   Borrow Functionality
-
+    -   Borrowed Item Instance --> Done
+    -   Delivered
+    -   Return 
 ##  Future
 -   API
