@@ -2,8 +2,10 @@ from django.db import models
 from django.db.models.signals import pre_save,post_save
 from django.utils import timezone
 from django.utils.text import slugify
-
+from genres.models import Tag
+from qlib.db.recievers import add_active_timestamp
 from series.models import Series
+
 
 # Create your models here.
 
@@ -21,6 +23,7 @@ class Book(models.Model):
     series = models.ForeignKey(Series,on_delete=models.SET_NULL,null=True,blank=True)
     order = models.IntegerField(default=1)
     title = models.CharField(max_length=220)
+    tags = models.ManyToManyField(Tag,blank=True,null=True,related_name="book_tags")
     author = models.ForeignKey(Author,on_delete=models.SET_NULL,blank=True,null=True)
     short_desc = models.TextField()
     slug = models.SlugField(blank=True,null=True)
@@ -38,16 +41,7 @@ class BookProxy(Book):
         proxy=True
         verbose_name = 'Active Book'
         verbose_name_plural = 'Active Books'
-        
 
-# Function to assign activation timestamp to the book once its activated.
-def add_active_timestamp(sender,instance,*args,**kwargs):
-    is_active = instance.is_active
-    # print("status  ",is_active)
-    if is_active and instance.active_timestamp is None:
-        instance.active_timestamp = timezone.now()
-    elif not is_active and instance.active_timestamp is not None:
-        instance.active_timestamp = None
         
 pre_save.connect(add_active_timestamp,sender=Book)
 

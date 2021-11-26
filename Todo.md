@@ -5,10 +5,10 @@ Qlibrary Web App...
     -   Series (Like seasons)   --> Done
 
 -   Categories
-    -   Dark, Fantasy, Action, Adventure, Mystery, Fiction, Biography
+    -   Dark, Fantasy, Action, Adventure, Mystery, Fiction, Biography --> Done
 
 -   Tags
-    -   Dark, Love, Literature, Action, Comedy, Sci-fi, Autobiography
+    -   Dark, Love, Literature, Action, Comedy, Sci-fi, Autobiography --> Done
 
 -   Search
     -   Title
@@ -17,6 +17,7 @@ Qlibrary Web App...
     -   Description
 
 -   User Accounts
+
 -   Borrow Functionality
 
 ##  Future

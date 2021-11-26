@@ -3,7 +3,7 @@ from django.db.models.signals import pre_save
 from django.utils import timezone
 from random import randint
 from django.utils.text import slugify
-
+from qlib.db.recievers import add_active_timestamp
 from genres.models import Genre
 # Create your models here.
 class Series(models.Model):
@@ -25,18 +25,7 @@ class Series(models.Model):
     @property
     def active(self):
         return self.is_active
-    
-    
-
-# Function to assign activation timestamp to the book once its activated.
-def add_active_timestamp(sender,instance,*args,**kwargs):
-    is_active = instance.is_active
-    # print("status  ",is_active)
-    if is_active and instance.active_timestamp is None:
-        instance.active_timestamp = timezone.now()
-    elif not is_active and instance.active_timestamp is not None:
-        instance.active_timestamp = None
-        
+      
 pre_save.connect(add_active_timestamp,sender=Series)
 
 # Function to automatically assign book_id and slug
