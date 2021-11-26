@@ -1,26 +1,33 @@
 Qlibrary Web App...
 
--   Books
+-   Books --> Done
     -   Book (Single Book)  --> Done
     -   Series (Like seasons)   --> Done
 
--   Categories
+-   Categories --> Done
     -   Dark, Fantasy, Action, Adventure, Mystery, Fiction, Biography --> Done
 
--   Tags
-    -   Dark, Love, Literature, Action, Comedy, Sci-fi, Autobiography --> Done
+-   Tags --> Done
+    -   Best Selling, Pulitzer Awarded etc. --> Done
+
+-   Borrow Functionality --> Done
+    -   Borrowed Item Instance --> Done
+    -   Delivered --> Done (Via Admin Panel)
+    -   Return --> Done (Captures actual Returned Date and update transaction and book state.)
+
+-   User Based Ratings and Review
+    - Star Rating and Comment (Review)
+    - User must have ordered that Book to Review
+    - Login Required
 
 -   Search
     -   Title
-    -   Tags`
+    -   Tags
     -   Category
     -   Description
 
 -   User Accounts
 
--   Borrow Functionality
-    -   Borrowed Item Instance --> Done
-    -   Delivered
-    -   Return 
 ##  Future
 -   API
+-   Tracking of User Patter to Add Recomendation System.
