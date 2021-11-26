@@ -5,7 +5,7 @@ from django.utils.text import slugify
 from genres.models import Tag
 from qlib.db.recievers import add_active_timestamp
 from series.models import Series
-
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -23,7 +23,7 @@ class Book(models.Model):
     series = models.ForeignKey(Series,on_delete=models.SET_NULL,null=True,blank=True)
     order = models.IntegerField(default=1)
     title = models.CharField(max_length=220)
-    tags = models.ManyToManyField(Tag,blank=True,null=True,related_name="book_tags")
+    tags = models.ManyToManyField(Tag,blank=True,related_name="book_tags")
     author = models.ForeignKey(Author,on_delete=models.SET_NULL,blank=True,null=True)
     short_desc = models.TextField()
     slug = models.SlugField(blank=True,null=True)
@@ -31,6 +31,8 @@ class Book(models.Model):
     is_active = models.BooleanField(default=True)
     read_time_mins = models.IntegerField(blank=True,null=True)
     active_timestamp = models.DateTimeField(verbose_name="Last Activated",auto_now_add=False,null=True,blank=True)
+    # Borrow System 
+    is_borrowed = models.BooleanField(default=False)
     
     def __str__(self):
         return self.title

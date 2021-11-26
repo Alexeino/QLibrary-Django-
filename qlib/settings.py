@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'books',
     'series',
-    'genres'
+    'genres',
+    'borrow'
 ]
 
 MIDDLEWARE = [
