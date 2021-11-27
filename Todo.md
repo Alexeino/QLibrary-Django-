@@ -20,13 +20,15 @@ Qlibrary Web App...
     - User must have ordered that Book to Review
     - Login Required
 
+-   Monthly Subscription
+
 -   Search
     -   Title
     -   Tags
     -   Category
     -   Description
 
--   User Accounts
+-   User Accounts   --> Done
 
 ##  Future
 -   API

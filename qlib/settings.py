@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'genres',
     'borrow',
     'reviews',
-    'accounts'
+    'accounts',
+    'subscription'
 ]
 
 MIDDLEWARE = [
