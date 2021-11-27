@@ -1,4 +1,5 @@
 from django.db import models
+from accounts.models import UserAccount
 from books.models import Book
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
@@ -9,23 +10,26 @@ def get_return_date():
 
 class BorrowedItem(models.Model):
     book_id = models.ForeignKey(Book,on_delete=models.SET_NULL,null=True,blank=True)
-    borrow_person = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
+    borrow_person = models.ForeignKey(UserAccount,on_delete=models.SET_NULL,null=True)
     return_date = models.DateTimeField(auto_now_add=False,null=True,blank=True)
     is_delivered = models.BooleanField(default=False)
     is_returned = models.BooleanField(default=False)
     book_returned_date = models.DateField(auto_now_add=False,blank=True,null=True)
     
     def __str__(self):
-        return f"{self.borrow_person.username} borrowed {self.book_id.title} " 
+        return f"{self.borrow_person.user.username} borrowed {self.book_id.title} " 
     
     
 def add_book_returned_date(sender,instance,*args,**kwargs):
     print("***********Book returned reciever, Saving date to the Transaction********")
     borrowed_book = Book.objects.get(id = instance.book_id.id)
+    borrow_person = UserAccount.objects.get(id = instance.borrow_person.id)
     if instance.is_returned == True:
         instance.book_returned_date = datetime.today()
         instance.is_delivered = False
         borrowed_book.is_borrowed = False
+        borrow_person.has_book = False
+        borrow_person.save()
         borrowed_book.save()
         print("Book Returned, Transaction Date Saved...")
     else:
@@ -36,18 +40,22 @@ def add_book_returned_date(sender,instance,*args,**kwargs):
 def add_return_date(sender,instance,*args,**kwargs):
     print("***************8Borrow Pre Save Model Recievers***************")
     borrowed_book = Book.objects.get(id = instance.book_id.id)
-    print("Borrowed state reciever  -->",borrowed_book.is_borrowed)
+    borrow_person = UserAccount.objects.get(id = instance.borrow_person.id)
+    print(borrow_person)
+    # print("Borrowed state reciever  -->",borrowed_book.is_borrowed)
     borrowed_book.is_borrowed = True
+    borrow_person.has_book = True
+    borrow_person.save()
     borrowed_book.save()
-    print("Borrowed Book is --> ",borrowed_book.title)
-    print("Borrowed state reciever  -->",borrowed_book.is_borrowed)
-    print("Return Date Function -->",get_return_date())
+    # print("Borrowed Book is --> ",borrowed_book.title)
+    # print("Borrowed state reciever  -->",borrowed_book.is_borrowed)
+    # print("Return Date Function -->",get_return_date())
     if instance.return_date is None:
-        print("Book Borrowed --> Adding Return Date...")
+        # print("Book Borrowed --> Adding Return Date...")
         instance.return_date = get_return_date()
         instance.save()
     elif instance.return_date is not None:
-        print("Return Date Exists Already...........")
+        # print("Return Date Exists Already...........")
         pass
     print(instance.return_date)
     
