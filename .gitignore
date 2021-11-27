@@ -111,5 +111,5 @@ ENV/
 .mypy_cache/
 
 # database
-db.sqlite3/
-data.json/
+db.sqlite3
+data.json
